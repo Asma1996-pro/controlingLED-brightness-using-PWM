@@ -1,0 +1,144 @@
+/* This program controls the LED’s brightness by using the PWM implemented with delays using the function _delay_ms().
+
+Lab experiment 1 B
+
+Target device: ATmega 328P
+
+*/
+
+Lab1-b
+#include <avr/io.h>
+#include <util/delay.h>
+#define LED PB0 
+#define BUTTON1 PD3
+#define BUTTON2 PD4
+#define BUTTON3 PD5
+#define BUTTON4 PD6
+
+
+int main ( ) 
+
+{
+DDRB |= (1<<LED);
+DDRD &=~(1<<BUTTON1);
+DDRD &=~(1<<BUTTON2);
+DDRD &=~(1<<BUTTON3);
+DDRD &=~(1<<BUTTON4);
+PORTD |= (1<<BUTTON1);
+PORTD |= (1<<BUTTON2);
+PORTD |= (1<<BUTTON3);
+PORTD |= (1<<BUTTON4);
+
+
+int x;
+void waite4button1 ()
+{
+	while  ((PIND&(1<<BUTTON1) )!=0)
+_delay_ms(10);
+		while ((PIND&(1<<BUTTON1))==0)
+_delay_ms(10);
+}
+
+void waite4button2 ()
+{
+	while  ((PIND&(1<<BUTTON2) )!=0)
+_delay_ms(10);
+		while ((PIND&(1<<BUTTON2))==0)
+_delay_ms(10);
+}
+
+void waite4button3 ()
+  {
+	while  ((PIND&(1<<BUTTON3) )!=0)
+	_delay_ms(10);
+	while ((PIND&(1<<BUTTON3))==0)
+_delay_ms(10);
+}
+
+	void waite4button4 ()
+{
+	while  ((PIND&(1<<BUTTON4) )!=0)
+_delay_ms(10);
+while ((PIND&(1<<BUTTON4))==0)
+	_delay_ms(10);
+	}
+
+
+
+
+
+
+
+
+
+
+
+while (1)
+{
+if ( (PIND & (1<<BUTTON1))==0)
+{
+waite4button1 ();
+
+for (x=0; x<150 ; x++)
+{
+	PORTB |= (1<<LED);
+	_delay_ms(19); //95% ON
+	
+	PORTB&= ~(1<<LED);
+	
+	_delay_ms(1);
+
+} //END OF FOR1
+} //END OF IF1
+if ( (PIND&(1<<BUTTON2))==0) {
+waite4button2 ();
+for (x=0; x<150 ; x++)
+{
+	PORTB |= (1<<LED);
+	_delay_ms(13); // 65% ON
+	
+	PORTB&= ~(1<<LED);
+	
+	_delay_ms(7);
+
+
+} //END OF FOR2 
+} //END OF IF2
+
+if ( (PIND&(1<<BUTTON3))==0) {
+waite4button3 ();
+for (x=0; x<150 ; x++)
+{
+	PORTB |= (1<<LED);
+	_delay_ms(7); //35% ON
+	
+	PORTB&= ~(1<<LED);
+	
+	_delay_ms(13);
+
+
+} //END OF FOR3 
+} //END OF IF3
+
+if ( (PIND&(1<<BUTTON4))==0) {
+waite4button4 ();
+for (x=0; x<150 ; x++)
+{
+	PORTB |= (1<<LED);
+	_delay_ms(2); // 10% ON
+	
+	PORTB&= ~(1<<LED);
+	
+	_delay_ms(18);
+
+
+} //END OF FOR4 
+} //END OF IF4
+
+} // END OF WHILE 
+
+	return 0;
+
+	} //END OF MAIN
+
+
